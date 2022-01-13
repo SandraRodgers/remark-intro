@@ -1,4 +1,8 @@
-import { stream } from "unified-stream";
+//This example uses file-system (to-vfile written on top of Node FS)
+//vfile is a small and browser friendly virtual file format that tracks metadata (such as a file’s path and value) and messages.
+
+import { readSync, writeSync } from "to-vfile"; //
+import { reporter } from "vfile-reporter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
@@ -13,13 +17,13 @@ const processor = unified()
   .use(rehypeDocument, { title: "Contents" }) //Add HTML document elements
   .use(rehypeStringify); //stringify
 
-process.stdin.pipe(stream(processor)).pipe(process.stdout);
-
-//TO CREATE THE HTML FILE:
-//in terminal, run this command: node FILE.js < FILE.md > FILE.html
-//for this example: node MDtoHTML.js < example.md > example.html
-
-//remark-parse is a markdown parser
-//rehype-stringify is an HTML stringifier
-//remark-rehype is a transformer to transform between MD and HTML
-//rehype-slug remark-toc rehype-document give more HTML document structure to the file
+processor.process(readSync("example.md")).then(
+  (file) => {
+    console.error(reporter(file));
+    file.extname = ".html";
+    writeSync(file);
+  },
+  (error) => {
+    throw error;
+  }
+);

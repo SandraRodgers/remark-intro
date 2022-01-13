@@ -10,11 +10,17 @@
   "author": "Sandra Rodgers",
   "license": "ISC",
   "dependencies": {
+    "rehype-document": "^6.0.1",
+    "rehype-slug": "^5.0.1",
     "rehype-stringify": "^9.0.2",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
+    "remark-slug": "^7.0.1",
+    "remark-toc": "^8.0.1",
+    "to-vfile": "^7.2.3",
     "unified": "^10.1.1",
     "unified-stream": "^2.0.0",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-visit": "^4.1.0",
+    "vfile-reporter": "^7.0.3"
   }
 }
